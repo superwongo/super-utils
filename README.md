@@ -3,6 +3,9 @@ python utils packages
 
 函数分布图：
 super_utils
+    |--- concurrent_utils
+        |--- thread.py
+            |--- def thread_apply_async
     |--- format_utils
         |--- frequency.py
             |--- def sizeof_storage_fmt
