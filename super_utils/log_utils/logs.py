@@ -97,3 +97,12 @@ class LoggerGenerator(object):
             pass
         dictConfig(self._logging_config)
         return logging.getLogger(self.log_type)
+
+
+if __name__ == '__main__':
+    logger = LoggerGenerator().logger
+    logger.debug('debug日志')
+    logger.info('info日志')
+    logger.error('error日志')
+    logger.critical('critical日志')
+    logger.exception('exception日志')

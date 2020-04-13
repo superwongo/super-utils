@@ -15,6 +15,9 @@ super_utils
             |--- def sizeof_storage_parse
         |--- time.py
             |--- def sizeof_time_fmt
+    |--- log_utils
+        |--- logs.py
+            |--- class LoggerGenerator
     |--- time_utils
         |--- timezone.py
             |--- def timezone_convert
