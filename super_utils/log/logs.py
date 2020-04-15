@@ -17,10 +17,26 @@ from .configs import LOG_FILE_MAX_BYTES, LOG_FILE_BACKUP_COUNT, LOG_PATH_ERROR, 
 
 class LoggerGenerator(object):
     """日志对象生成器"""
-    def __init__(self, log_type=LOG_TYPE, log_level=LOG_LEVEL, multiprocess=False):
-        self.log_type = log_type
-        self.log_level = log_level
+    def __init__(self, log_type=None, log_level=None, log_path=None, log_path_info=None, log_path_error=None,
+                 log_file_max_bytes=None, log_file_backup_count=None, multiprocess=False):
+        """
+        :param log_type: 日志类型，console_logger、file_logger、common_logger
+        :param log_level: 日志级别，DEBUG、INFO、ERROR、CRITICAL、EXCEPTION，默认INFO
+        :param log_path: 日志目录
+        :param log_path_info: 正常日志文件绝对路径
+        :param log_path_error: 异常日志文件绝对路径
+        :param log_file_max_bytes: 日志文件最大字节数，默认10M
+        :param log_file_backup_count: 日志文件最大备份个数，默认10个
+        :param multiprocess: 是否支持多进程，默认False
+        """
+        self.log_type = log_type or LOG_TYPE
+        self.log_level = log_level or LOG_LEVEL
         self.multiprocess = multiprocess
+        self.log_path = log_path or LOG_PATH
+        self.log_path_info = log_path_info or LOG_PATH_INFO
+        self.log_path_error = log_path_error or LOG_PATH_ERROR
+        self.log_file_max_bytes = log_file_max_bytes or LOG_FILE_MAX_BYTES
+        self.log_file_backup_count = log_file_backup_count or LOG_FILE_BACKUP_COUNT
         self._logging_config = {
             'version': 1,
             'disable_existing_loggers': False,
@@ -46,17 +62,17 @@ class LoggerGenerator(object):
                     'class': 'cloghandler.ConcurrentRotatingFileHandler' if self.multiprocess else 'logging.handlers.RotatingFileHandler',
                     'level': 'INFO',
                     'formatter': 'verbose_info',
-                    'filename': LOG_PATH_INFO,
-                    'maxBytes': int(LOG_FILE_MAX_BYTES),
-                    'backupCount': int(LOG_FILE_BACKUP_COUNT)
+                    'filename': self.log_path_info,
+                    'maxBytes': int(self.log_file_max_bytes),
+                    'backupCount': int(self.log_file_backup_count)
                 },
                 'error_file_handler': {
                     'class': 'cloghandler.ConcurrentRotatingFileHandler' if self.multiprocess else 'logging.handlers.RotatingFileHandler',
                     'level': 'ERROR',
                     'formatter': 'verbose_error',
-                    'filename': LOG_PATH_ERROR,
-                    'maxBytes': int(LOG_FILE_MAX_BYTES),
-                    'backupCount': int(LOG_FILE_BACKUP_COUNT)
+                    'filename': self.log_path_error,
+                    'maxBytes': int(self.log_file_max_bytes),
+                    'backupCount': int(self.log_file_backup_count)
                 }
             },
             'loggers': {
@@ -92,7 +108,7 @@ class LoggerGenerator(object):
 
         # 创建日志目录
         try:
-            os.makedirs(LOG_PATH)
+            os.makedirs(self.log_path)
         except OSError:
             pass
         dictConfig(self._logging_config)

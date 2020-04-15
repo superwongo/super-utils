@@ -29,5 +29,5 @@ LOG_FILE_MAX_BYTES = 10 * 1024 * 1024
 # 日志文件轮转数量是 10 个
 LOG_FILE_BACKUP_COUNT = 10
 # 日志级别
-LOG_LEVEL = 'DEBUG'
+LOG_LEVEL = 'INFO'
 # ------------------------- #
