@@ -4,10 +4,10 @@ python utils packages
 函数分布图：
 ```
 super_utils
-|   |--- concurrent_utils
+|   |--- concurrent
 |   |   |--- thread.py
 |   |   |   |--- def thread_apply_async: 线程池
-|   |--- format_utils
+|   |--- format
 |   |   |--- frequency.py
 |   |   |   |--- def sizeof_frequency_fmt: 频率数值格式化
 |   |   |   |--- def sizeof_frequency_parse: 频率字符串解析
@@ -19,13 +19,13 @@ super_utils
 |   |   |   |--- def sizeof_storage_parse: 存储字符串解析
 |   |   |--- time.py
 |   |   |   |--- def sizeof_time_fmt: 时间数值格式化
-|   |--- log_utils
+|   |--- log
 |   |   |--- logs.py
 |   |   |   |--- class LoggerGenerator: 日志生成器
-|   |--- run_server_utils
+|   |--- run_server
 |   |   |--- daemon.py
 |   |   |   |--- class Daemon: 守护进程
-|   |--- time_utils
+|   |--- time
 |   |   |--- timezone.py
 |   |   |   |--- def timezone_convert: 时区转换
 ```
